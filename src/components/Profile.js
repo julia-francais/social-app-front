@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
+import EditDetails from "./EditDetails";
 
 //Redux
 import { connect } from "react-redux";
@@ -15,13 +16,14 @@ import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import MuiLink from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
-import ToolTip from "@material-ui/core/ToolTip";
+import Tooltip from "@material-ui/core/Tooltip";
 
 //Icons
 import LocationOn from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
 import CalendarToday from "@material-ui/icons/CalendarToday";
 import EditIcon from "@material-ui/icons/Edit";
+import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
 
 const styles = {
   paper: {
@@ -84,6 +86,10 @@ export class Profile extends Component {
     fileInput.click();
   };
 
+  handleLogout = () => {
+    this.props.logoutUser();
+  };
+
   render() {
     const {
       classes,
@@ -106,11 +112,11 @@ export class Profile extends Component {
                 id="imageInput"
                 onChange={this.handleImageChange}
               />
-              <ToolTip title="Edit profile picture">
+              <Tooltip title="Edit profile picture">
                 <IconButton onClick={this.handleEditPicture} className="button">
                   <EditIcon color="primary" />
                 </IconButton>
-              </ToolTip>
+              </Tooltip>
             </div>
             <hr />
             <div className="profile-details">
@@ -144,6 +150,12 @@ export class Profile extends Component {
               <CalendarToday color="primary" />{" "}
               <span>Joined {dayjs(createdAt).format("MMM YYYY")}</span>
             </div>
+            <Tooltip title="Logout" placement="top">
+              <IconButton onClick={this.handleLogout}>
+                <KeyboardReturn color="primary" />
+              </IconButton>
+            </Tooltip>
+            <EditDetails />
           </div>
         </Paper>
       ) : (
