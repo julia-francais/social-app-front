@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import PropTypes from "prop-types";
 import MyButton from "../util/MyButton";
+import DeletePost from "../components/DeletePost";
 
 //MUI Stuff
 import Card from "@material-ui/core/Card";
@@ -22,6 +23,7 @@ import { likePost, unlikePost } from "../redux/actions/dataAction";
 
 const styles = {
   card: {
+    position: "relative",
     display: "flex",
     marginBottom: 20
   },
@@ -30,8 +32,7 @@ const styles = {
   },
   content: {
     padding: 25,
-    objectFit: "cover",
-    height: 100
+    objectFit: "cover"
   }
 };
 export class Post extends Component {
@@ -69,7 +70,10 @@ export class Post extends Component {
         likeCount,
         commentCount
       },
-      user: { authenticated }
+      user: {
+        authenticated,
+        credentials: { handle }
+      }
     } = this.props;
     const likeButton = !authenticated ? (
       <MyButton tip="Like">
@@ -86,6 +90,14 @@ export class Post extends Component {
         <FavoriteBorder color="primary" />
       </MyButton>
     );
+    console.log("userHandle", userHandle);
+    console.log("handle", handle);
+
+    const deleteButton =
+      authenticated && userHandle === handle ? (
+        <DeletePost postId={postId} />
+      ) : null;
+
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -102,6 +114,7 @@ export class Post extends Component {
           >
             {userHandle}
           </Typography>
+          {deleteButton}
           <Typography variant="body2" color="textSecondary">
             {dayjs(createdAt).fromNow()}
           </Typography>
