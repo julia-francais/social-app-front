@@ -5,7 +5,8 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import PropTypes from "prop-types";
 import MyButton from "../util/MyButton";
-import DeletePost from "../components/DeletePost";
+import DeletePost from "./DeletePost";
+import PostDialog from "./PostDialog";
 
 //MUI Stuff
 import Card from "@material-ui/core/Card";
@@ -37,7 +38,6 @@ const styles = {
 };
 export class Post extends Component {
   likedPost = () => {
-    console.log(this.props.post.postId);
     if (
       this.props.user.likes &&
       this.props.user.likes.find(like => like.postId === this.props.post.postId)
@@ -58,6 +58,8 @@ export class Post extends Component {
   };
 
   render() {
+    console.log("props", this.props);
+
     dayjs.extend(relativeTime);
     const {
       classes,
@@ -127,6 +129,7 @@ export class Post extends Component {
             <ChatIcon color="primary" />
           </MyButton>
           <span>{commentCount} Comments</span>
+          <PostDialog postId={postId} userHandle={userHandle} />
         </CardContent>
       </Card>
     );

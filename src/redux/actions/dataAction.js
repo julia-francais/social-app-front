@@ -7,7 +7,9 @@ import {
   LOADING_UI,
   CREATE_POST,
   CLEAR_ERRORS,
-  SET_ERRORS
+  SET_ERRORS,
+  SET_POST,
+  STOP_LOADING_UI
 } from "../types";
 
 import axios from "axios";
@@ -31,31 +33,27 @@ export const getPosts = () => dispatch => {
     });
 };
 
-//Create a Post
-// export const createPost = newPost => dispatch => {
-//   dispatch({ type: LOADING_UI });
-//   axios
-//     .post("/post", newPost)
-//     .then(res => {
-//       dispatch({
-//         type: CREATE_POST,
-//         payload: res.data
-//       });
-//       dispatch({ type: CLEAR_ERRORS });
-//     })
-//     .catch(err => {
-//       dispatch({
-//         type: SET_ERRORS,
-//         payload: err.response.data
-//       });
-//     });
-// };
+export const getPost = postId => dispatch => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .get(`/post/${postId}`)
+    .then(res => {
+      dispatch({
+        type: SET_POST,
+        payload: res.data
+      });
+      dispatch({ type: STOP_LOADING_UI });
+    })
+    .catch(err => console.log(err));
+};
 
+//Create a Post
 export const createPost = newPost => dispatch => {
   dispatch({ type: LOADING_UI });
   axios
     .post("/post", newPost)
     .then(res => {
+      console.log("res", res);
       dispatch({
         type: CREATE_POST,
         payload: res.data
