@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import PropTypes from "prop-types";
-import MyButton from "../../util/MyButton";
 import DeletePost from "./DeletePost";
 import PostDialog from "./PostDialog";
 import LikeButton from "./LikeButton";
@@ -20,6 +19,7 @@ import ChatIcon from "@material-ui/icons/Chat";
 
 //Redux
 import { connect } from "react-redux";
+import { Badge } from "@material-ui/core";
 
 const styles = {
   card: {
@@ -33,12 +33,14 @@ const styles = {
   content: {
     padding: 25,
     objectFit: "cover"
+  },
+  commentsIcon: {
+    marginLeft: "20px",
+    marginRight: "10px"
   }
 };
 export class Post extends Component {
   render() {
-    console.log("props", this.props);
-
     dayjs.extend(relativeTime);
     const {
       classes,
@@ -56,9 +58,6 @@ export class Post extends Component {
         credentials: { handle }
       }
     } = this.props;
-
-    console.log("userHandle", userHandle);
-    console.log("handle", handle);
 
     const deleteButton =
       authenticated && userHandle === handle ? (
@@ -90,11 +89,15 @@ export class Post extends Component {
           <span>
             {likeCount} Like{likeCount > 1 && "s"}
           </span>
-          <MyButton tip="Comments">
+          <Badge tip="comments" className={classes.commentsIcon}>
             <ChatIcon color="primary" />
-          </MyButton>
+          </Badge>
           <span>{commentCount} Comments</span>
-          <PostDialog postId={postId} userHandle={userHandle} />
+          <PostDialog
+            postId={postId}
+            userHandle={userHandle}
+            openDialog={this.props.openDialog}
+          />
         </CardContent>
       </Card>
     );
@@ -104,7 +107,8 @@ export class Post extends Component {
 Post.propTypes = {
   user: PropTypes.object.isRequired,
   post: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  openDialog: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
