@@ -7,7 +7,7 @@ import EditDetails from "./EditDetails";
 
 //Redux
 import { connect } from "react-redux";
-import { logoutUser, uploadImage } from "../redux/actions/userAction";
+import { logoutUser, uploadImage } from "../../redux/actions/userAction";
 
 //MUI stuff
 import Button from "@material-ui/core/Button";
@@ -21,7 +21,7 @@ import LinkIcon from "@material-ui/icons/Link";
 import CalendarToday from "@material-ui/icons/CalendarToday";
 import EditIcon from "@material-ui/icons/Edit";
 import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 
 const styles = {
   paper: {

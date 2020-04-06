@@ -1,20 +1,19 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import dayjs from "dayjs";
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 import LikeButton from "./LikeButton";
+import Comments from "./Comments";
+import CommentForm from "./CommentForm";
 
 import { Link } from "react-router-dom";
 
 //MUI
 import withStyles from "@material-ui/core/styles/withStyles";
 import {
-  Button,
-  TextField,
   CircularProgress,
   Dialog,
   DialogContent,
-  DialogTitle,
   Grid,
   Typography
 } from "@material-ui/core";
@@ -27,14 +26,11 @@ import UnfoldMore from "@material-ui/icons/UnfoldMore";
 
 //redux
 import { connect } from "react-redux";
-import { getPost } from "../redux/actions/dataAction";
+import { getPost, clearErrors } from "../../redux/actions/dataAction";
 
 const styles = theme => ({
   ...theme.spreadThis,
-  invisibleSeparator: {
-    border: "none",
-    margin: 4
-  },
+
   profileImage: {
     maxWidth: 200,
     height: 200,
@@ -69,6 +65,7 @@ class PostDialog extends Component {
   };
   handleClose = () => {
     this.setState({ open: false });
+    this.props.clearErrors();
   };
 
   render() {
@@ -81,7 +78,8 @@ class PostDialog extends Component {
         likeCount,
         commentCount,
         userImage,
-        userHandle
+        userHandle,
+        comments
       },
       UI: { loading }
     } = this.props;
@@ -91,7 +89,7 @@ class PostDialog extends Component {
         <CircularProgress size={200} thickness={2} />
       </div>
     ) : (
-      <Grid container spacing={8}>
+      <Grid container spacing={2}>
         <Grid item sm={5}>
           <img src={userImage} alt="Profile" className={classes.profileImage} />
         </Grid>
@@ -117,6 +115,9 @@ class PostDialog extends Component {
           </MyButton>
           <span>{commentCount} comments</span>
         </Grid>
+        <hr className={classes.visibleSeparator} />
+        <CommentForm postId={postId} />
+        <Comments comments={comments} />
       </Grid>
     );
 
@@ -152,6 +153,7 @@ class PostDialog extends Component {
 }
 
 PostDialog.propTypes = {
+  clearErrors: PropTypes.func.isRequired,
   getPost: PropTypes.func.isRequired,
   postId: PropTypes.string.isRequired,
   userHandle: PropTypes.string.isRequired,
@@ -165,7 +167,8 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = {
-  getPost
+  getPost,
+  clearErrors
 };
 
 export default connect(

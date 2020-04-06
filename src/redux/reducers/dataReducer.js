@@ -5,7 +5,8 @@ import {
   UNLIKE_POST,
   LOADING_DATA,
   DELETE_POST,
-  CREATE_POST
+  CREATE_POST,
+  SUBMIT_COMMENT
 } from "../types";
 
 const initialState = {
@@ -56,6 +57,14 @@ export default function(state = initialState, action) {
       return {
         ...state,
         posts: [action.payload, ...state.posts]
+      };
+    case SUBMIT_COMMENT:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: [action.payload, ...state.post.comments]
+        }
       };
     default:
       return state;
