@@ -6,7 +6,7 @@ import Post from "../components/post/Post";
 import Profile from "../components/profile/Profile";
 
 import { connect } from "react-redux";
-import { getPosts } from "../redux/actions/dataAction";
+import { getPosts } from "../redux/actions/dataActions";
 export class Home extends Component {
   state = {
     posts: null

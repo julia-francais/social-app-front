@@ -7,7 +7,7 @@ import EditDetails from "./EditDetails";
 
 //Redux
 import { connect } from "react-redux";
-import { logoutUser, uploadImage } from "../../redux/actions/userAction";
+import { logoutUser, uploadImage } from "../../redux/actions/userActions";
 
 //MUI stuff
 import Button from "@material-ui/core/Button";
@@ -122,7 +122,7 @@ export class Profile extends Component {
             <div className="profile-details">
               <MuiLink
                 component={Link}
-                to={`/users?${handle}`}
+                to={`/users/${handle}`}
                 color="primary"
                 variant="h5"
               >

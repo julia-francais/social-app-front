@@ -4,7 +4,7 @@ import MyButton from "../../util/MyButton";
 
 //Redux
 import { connect } from "react-redux";
-import { editUserDetails } from "../../redux/actions/userAction";
+import { editUserDetails } from "../../redux/actions/userActions";
 
 //MUI
 import withStyles from "@material-ui/core/styles/withStyles";

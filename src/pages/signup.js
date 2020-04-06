@@ -13,7 +13,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 //Redux stuff
 import { connect } from "react-redux";
-import { signupUser } from "../redux/actions/userAction";
+import { signupUser } from "../redux/actions/userActions";
 
 const styles = theme => ({
   ...theme.spreadThis

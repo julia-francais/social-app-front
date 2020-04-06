@@ -7,7 +7,7 @@ import { Button, TextField, Grid } from "@material-ui/core";
 
 //Redux
 import { connect } from "react-redux";
-import { submitComment } from "../../redux/actions/dataAction";
+import { submitComment } from "../../redux/actions/dataActions";
 
 const styles = theme => ({
   ...theme.spreadThis

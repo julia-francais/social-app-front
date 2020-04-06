@@ -26,7 +26,7 @@ import UnfoldMore from "@material-ui/icons/UnfoldMore";
 
 //redux
 import { connect } from "react-redux";
-import { getPost, clearErrors } from "../../redux/actions/dataAction";
+import { getPost, clearErrors } from "../../redux/actions/dataActions";
 
 const styles = theme => ({
   ...theme.spreadThis,
@@ -98,7 +98,7 @@ class PostDialog extends Component {
             component={Link}
             color="primary"
             variant="h5"
-            to={`/users.${userHandle}`}
+            to={`/users/${userHandle}`}
           >
             @{userHandle}
           </Typography>
