@@ -15,8 +15,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { connect } from "react-redux";
 import { signupUser } from "../redux/actions/userActions";
 
-const styles = theme => ({
-  ...theme.spreadThis
+const styles = (theme) => ({
+  ...theme.spreadThis,
 });
 
 class Signup extends Component {
@@ -27,7 +27,7 @@ class Signup extends Component {
       password: "",
       confirmPassword: "",
       handle: "",
-      errors: {}
+      errors: {},
     };
   }
 
@@ -37,29 +37,29 @@ class Signup extends Component {
     }
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.setState({
-      loading: true
+      loading: true,
     });
     const newUserData = {
       email: this.state.email,
       password: this.state.password,
       confirmPassword: this.state.confirmPassword,
-      handle: this.state.handle
+      handle: this.state.handle,
     };
     this.props.signupUser(newUserData, this.props.history);
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
   render() {
     const {
       classes,
-      UI: { loading }
+      UI: { loading },
     } = this.props;
     const { errors } = this.state;
     return (
@@ -152,12 +152,12 @@ Signup.propTypes = {
   classes: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
-  signupUser: PropTypes.func.isRequired
+  signupUser: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.user,
-  UI: state.UI
+  UI: state.UI,
 });
 
 export default connect(mapStateToProps, { signupUser })(

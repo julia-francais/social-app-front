@@ -9,14 +9,14 @@ import { Button, TextField, Grid } from "@material-ui/core";
 import { connect } from "react-redux";
 import { submitComment } from "../../redux/actions/dataActions";
 
-const styles = theme => ({
-  ...theme.spreadThis
+const styles = (theme) => ({
+  ...theme.spreadThis,
 });
 
 export class CommentForm extends Component {
   state = {
     body: "",
-    errors: {}
+    errors: {},
   };
 
   componentWillReceiveProps(nextProps) {
@@ -25,16 +25,16 @@ export class CommentForm extends Component {
     }
     if (!nextProps.UI.errors && !nextProps.UI.loading) {
       this.setState({
-        body: ""
+        body: "",
       });
     }
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.props.submitComment(this.props.postId, { body: this.state.body });
   };
@@ -74,9 +74,9 @@ export class CommentForm extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   UI: state.UI,
-  authenticated: state.user.authenticated
+  authenticated: state.user.authenticated,
 });
 
 CommentForm.propTypes = {
@@ -84,7 +84,7 @@ CommentForm.propTypes = {
   UI: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   postId: PropTypes.string.isRequired,
-  authenticated: PropTypes.bool.isRequired
+  authenticated: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, { submitComment })(

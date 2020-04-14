@@ -10,7 +10,7 @@ import {
   CircularProgress,
   Dialog,
   DialogContent,
-  DialogTitle
+  DialogTitle,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import CloseIcon from "@material-ui/icons/Close";
@@ -19,31 +19,31 @@ import CloseIcon from "@material-ui/icons/Close";
 import { connect } from "react-redux";
 import { createPost } from "../../redux/actions/dataActions";
 
-const styles = theme => ({
+const styles = (theme) => ({
   ...theme.spreadThis,
   submitButton: {
-    position: "relative"
+    position: "relative",
   },
   progressSpinner: {
-    position: "absolute"
+    position: "absolute",
   },
   closeButton: {
     position: "absolute",
     left: "90%",
-    top: "10%"
-  }
+    top: "10%",
+  },
 });
 
 class CreatePost extends Component {
   state = {
     open: false,
     body: "",
-    errors: {}
+    errors: {},
   };
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({
-        errors: nextProps.UI.errors
+        errors: nextProps.UI.errors,
       });
     }
     if (!nextProps.UI.errors && !nextProps.UI.loading) {
@@ -57,10 +57,10 @@ class CreatePost extends Component {
   handleClose = () => {
     this.setState({ open: false, errors: {} });
   };
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.props.createPost({ body: this.state.body });
   };
@@ -68,7 +68,7 @@ class CreatePost extends Component {
     const { errors } = this.state;
     const {
       classes,
-      UI: { loading }
+      UI: { loading },
     } = this.props;
     return (
       <Fragment>
@@ -83,7 +83,7 @@ class CreatePost extends Component {
         >
           <MyButton
             tip="Close"
-            onClick={this.onClose}
+            onClick={this.handleClose}
             tipClassName={classes.closeButton}
           >
             <CloseIcon />
@@ -129,11 +129,11 @@ class CreatePost extends Component {
 
 CreatePost.propTypes = {
   createPost: PropTypes.func.isRequired,
-  UI: PropTypes.object.isRequired
+  UI: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  UI: state.UI
+const mapStateToProps = (state) => ({
+  UI: state.UI,
 });
 
 export default connect(mapStateToProps, { createPost })(

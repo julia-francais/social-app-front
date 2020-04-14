@@ -14,30 +14,33 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 
-//Icons
-import ChatIcon from "@material-ui/icons/Chat";
-
 //Redux
 import { connect } from "react-redux";
-import { Badge } from "@material-ui/core";
 
 const styles = {
   card: {
     position: "relative",
     display: "flex",
-    marginBottom: 20
+    marginBottom: 20,
   },
   image: {
-    minWidth: 200
+    minWidth: 100,
+    height: 100,
+    objectFit: "cover",
+    maxWidth: "100%",
+    borderRadius: "50%",
+    position: "relative",
+    top: "1.6em",
+    marginRight: "1em",
+    left: "1.3em",
   },
   content: {
     padding: 25,
-    objectFit: "cover"
+    objectFit: "cover",
   },
-  commentsIcon: {
-    marginLeft: "20px",
-    marginRight: "10px"
-  }
+  commentsSpan: {
+    marginRight: "20px",
+  },
 };
 export class Post extends Component {
   render() {
@@ -51,12 +54,12 @@ export class Post extends Component {
         userHandle,
         postId,
         likeCount,
-        commentCount
+        commentCount,
       },
       user: {
         authenticated,
-        credentials: { handle }
-      }
+        credentials: { handle },
+      },
     } = this.props;
 
     const deleteButton =
@@ -85,19 +88,18 @@ export class Post extends Component {
             {dayjs(createdAt).fromNow()}
           </Typography>
           <Typography variant="body1">{body}</Typography>
-          <LikeButton postId={postId} />
-          <span>
-            {likeCount} Like{likeCount > 1 && "s"}
-          </span>
-          <Badge tip="comments" className={classes.commentsIcon}>
-            <ChatIcon color="primary" />
-          </Badge>
-          <span>{commentCount} Comments</span>
+
           <PostDialog
             postId={postId}
             userHandle={userHandle}
             openDialog={this.props.openDialog}
           />
+          <span className={classes.commentsSpan}>{commentCount} Comments</span>
+
+          <LikeButton postId={postId} />
+          <span>
+            {likeCount} Like{likeCount > 1 && "s"}
+          </span>
         </CardContent>
       </Card>
     );
@@ -108,11 +110,11 @@ Post.propTypes = {
   user: PropTypes.object.isRequired,
   post: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  openDialog: PropTypes.bool
+  openDialog: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
-  user: state.user
+const mapStateToProps = (state) => ({
+  user: state.user,
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(Post));
