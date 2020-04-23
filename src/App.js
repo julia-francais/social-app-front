@@ -32,6 +32,7 @@ const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
   console.log(decodedToken);
+  //if the user has been connected for too long then disconnect him
   if (decodedToken.exp * 1000 < Date.now()) {
     store.dispatch(logoutUser());
     window.location.href = "/login";
@@ -51,6 +52,7 @@ function App() {
           <div className="container">
             <Switch>
               <Route exact path="/" component={home} />
+              {/* the following routes are only accessible to authenticated users*/}
               <AuthRoute exact path="/login" component={login} />
               <AuthRoute exact path="/signup" component={signup} />
               <Route exact path="/users/:handle" component={user} />
