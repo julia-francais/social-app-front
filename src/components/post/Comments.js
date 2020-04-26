@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, memo } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
@@ -6,22 +6,23 @@ import dayjs from "dayjs";
 
 import { Grid, Typography } from "@material-ui/core";
 
-const styles = theme => ({
+const styles = (theme) => ({
   ...theme.spreadThis,
   commentImage: {
     maxWidth: "100%",
     height: 100,
     objectFit: "cover",
-    borderRadius: "50%"
+    borderRadius: "50%",
   },
   commentData: {
-    marginLeft: 20
-  }
+    marginLeft: 20,
+  },
 });
 
 class Comments extends Component {
   render() {
     const { comments, classes } = this.props;
+
     return (
       <Grid container>
         {comments.map((comment, index) => {
@@ -68,7 +69,7 @@ class Comments extends Component {
 }
 
 Comments.propTypes = {
-  comments: PropTypes.array.isRequired
+  comments: PropTypes.array.isRequired,
 };
 
-export default withStyles(styles)(Comments);
+export default memo(withStyles(styles)(Comments));

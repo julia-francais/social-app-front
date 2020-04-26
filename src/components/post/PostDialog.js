@@ -91,6 +91,7 @@ class PostDialog extends Component {
   };
 
   render() {
+    console.log("props", this.props);
     const {
       classes,
       post: {
